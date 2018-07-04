@@ -33,11 +33,7 @@ bool Player::attack(Player& p)
 		return true; // the target's armor absorbed the entire attack
 
 	// otherwise, the attack proceeds. Step 3: check brands
-	switch (this->type)
-	{
-	default:
-		break;
-	}
+	
 
 	p.HP -= damage;
 	// if (p.HP < 0) kill(&p);

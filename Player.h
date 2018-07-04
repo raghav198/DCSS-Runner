@@ -31,7 +31,7 @@ private:
 	int AC, EV, dmg;
 	int HD;
 	int (&resistances)[NUM_RESIST];
-	std::vector<Player&> summons;
+	std::vector<Player*> summons;
 	brand type;
 public:
 

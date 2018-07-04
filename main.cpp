@@ -5,24 +5,17 @@
 #include<iostream>
 
 struct task {
-	task(std::shared_future<int> call, int time) :
-		call(call),
-		time(time) { }
-
 	std::shared_future<int> call;
 	int time;
-
-	const bool operator<(const task& right)
-	{
-		return this->time < right.time;
-	}
 };
 
-std::function<bool(task, task)> cmp = [](task left, task right) {
+using comparator = std::function<bool(task, task)>;
+using scheduler = std::priority_queue<task, std::vector<task>, comparator>;
+
+comparator cmp = [](task left, task right) {
 	return left.time > right.time;
 };
-
-std::priority_queue<task, std::vector<task>, std::function<bool(task, task)>> queue(cmp);
+scheduler queue(cmp);
 
 int runLater(int x)
 {
@@ -32,8 +25,8 @@ int runLater(int x)
 
 int main()
 {
-	task t1(std::async(std::launch::deferred, runLater, 3), 2);
-	task t2(std::async(std::launch::deferred, runLater, 5), 1);
+	task t1 = { std::async(std::launch::deferred, runLater, 3), 2 };
+	task t2 = { std::async(std::launch::deferred, runLater, 5), 1 };
 
 	queue.push(t1);
 	queue.push(t2);
