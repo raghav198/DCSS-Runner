@@ -1,5 +1,6 @@
 #pragma once
 #include "Point.h"
+#include "scheduling.h"
 #include<bitset>
 #include<vector>
 
@@ -31,11 +32,15 @@ private:
 	int AC, EV, dmg;
 	int HD;
 	int (&resistances)[NUM_RESIST];
+	int time;
+	int speed;
 	std::vector<Player*> summons;
 	brand type;
+	
 public:
 
-	Player(int maxHP, int maxMP, int regen, int recovery, int AC, int EV, int dmg, int (&res)[NUM_RESIST]):
+	Player(std::string name, int maxHP, int maxMP, int regen, int recovery, int AC, int EV, int dmg, int HD, int (&res)[NUM_RESIST]):
+		name(name),
 		maxHP(maxHP),
 		HP(maxHP),
 		maxMP(maxMP),
@@ -45,14 +50,19 @@ public:
 		AC(AC),
 		EV(EV),
 		dmg(dmg),
-		resistances(res) { }
+		resistances(res),
+		time(0),
+		speed(10),
+		HD(HD) { }
 
 	int HP, MP;
+	std::string name;
 	Point location;
 	bool move(direction);
 	bool attack(Player&);
-	bool takeTurn();
+	int takeTurn();
 
-
+	int heal();
+	void scheduleHeal();
 };
 
