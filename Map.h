@@ -1,5 +1,5 @@
 #include "Point.h"
-
+#pragma once
 enum tile {
 	BLANK,
 	WALL,
@@ -14,6 +14,7 @@ public:
 	Point size;
 public:
 	Map(int x, int y);
-	~Map();
 	tile at(int, int);
+	void make(float wall, float water);
+	void makeBlank();
 };

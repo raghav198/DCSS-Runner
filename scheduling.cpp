@@ -11,6 +11,11 @@ void scheduler::run()
 	}
 }
 
+void scheduler::schedule(task t)
+{
+	this->queue.push(t);
+}
+
 comparator cmp = [](task t1, task t2) {
 	return t1.time > t2.time;
 };

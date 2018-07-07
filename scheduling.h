@@ -18,4 +18,5 @@ struct scheduler {
 	int cur_time;
 
 	void run();
+	void schedule(task);
 };

@@ -46,7 +46,7 @@ bool Player::attack(Player& p)
 	// schedule.push(p.heal());
 
 	task nextTurn = { std::async(std::launch::deferred, &Player::takeTurn, this), sched.cur_time + this->speed };
-	sched.queue.push(nextTurn);
+	sched.schedule(nextTurn);
 	
 
 	return true;
@@ -63,7 +63,7 @@ void Player::scheduleHeal()
 {
 	int nextTime = this->recovery + sched.cur_time;
 	task nextHeal = { std::async(std::launch::deferred, &Player::heal, this), nextTime };
-	sched.queue.push(nextHeal);
+	sched.schedule(nextHeal);
 	std::cout << "Scheduled a heal for time t=" << nextTime << std::endl;
 }
 

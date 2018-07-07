@@ -1,4 +1,4 @@
-
+#pragma once
 enum direction {
 	NORTH,
 	SOUTH,
@@ -12,9 +12,9 @@ enum direction {
 };
 
 struct Point {
-	int x, y;
+	short x, y;
 	Point() = default;
-	Point(int x, int y) : 
+	Point(short x, short y) : 
 		x(x), 
 		y(y) { }
 };
