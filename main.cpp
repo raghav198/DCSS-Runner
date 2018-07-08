@@ -82,10 +82,15 @@ void testGame()
 	m.makeBlank();
 
 	int R[NUM_RESIST] = { 0, 0, 0, 0, 0 };
-	Player p("Manav", 50, 10, 3, 1, 8, 20, 10, 16, R);
-	p.location = { 5, 10 };
-	Game game(m, { &p });
-	sched.schedule({ std::async(std::launch::deferred, &Game::getPlayerTurn, game, &p), 0 });
+	Player p1("Manav", 50, 10, 3, 15, 8, 20, 10, 16, R);
+	Player p2("Raghav", 150, 20, 1, 15, 30, 25, 57, 100, R);
+	p1.location = { 5, 10 };
+	p1.ai.type = CTRL_WASD;
+	p2.location = { 20, 20 };
+	p2.ai.type = CTRL_ARROW;
+	Game game(m, { &p1, &p2 });
+	sched.schedule({ std::async(std::launch::deferred, &Game::getPlayerTurn, game, &p1), 0 });
+	sched.schedule({ std::async(std::launch::deferred, &Game::getPlayerTurn, game, &p2), 0 });
 	sched.run();
 
 }

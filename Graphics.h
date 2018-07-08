@@ -31,6 +31,6 @@ public:
 		messages(20, 10, 50) { }
 	void log(std::string);
 	void showMap();
-	void showStatus();
+	void showStatus(Player);
 };
 

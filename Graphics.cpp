@@ -45,9 +45,29 @@ void Graphics::showMap()
 	this->addPlayers();
 }
 
-void Graphics::showStatus()
+void Graphics::showStatus(Player cur)
 {
-	COORD 
+	short x = 70;
+	short y = 0;
+	
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), { x + 15, y });
+	std::cout << "HP";
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), { x + 20, y });
+	std::cout << "MP";
+	std::string blank = " ";
+	blank.resize(23, ' ');
+	for (Player * p : this->players)
+	{
+		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), { x, ++y });
+		std::cout << blank;
+		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), { x, y });
+		if (cur.name == p->name) std::cout << '*';
+		std::cout << p->name << ' ';
+		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), { x + 15, y });
+		std::cout << p->HP;
+		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), { x + 20, y });
+		std::cout << p->MP;
+	}
 }
 
 void Graphics::log(std::string message)

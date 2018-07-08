@@ -24,7 +24,7 @@ bool Player::attack(Player& p)
 
 	int toHitRoll = rand() % toHitMax;
 	int evadeRoll = rand() % evadeMax;
-	std::cout << "Checking evade (" << toHitRoll << " vs " << evadeRoll << ")\n";
+	// std::cout << "Checking evade (" << toHitRoll << " vs " << evadeRoll << ")\n";
 	if (evadeRoll > toHitRoll)
 		return true; // the target successfully evaded
 
@@ -32,7 +32,7 @@ bool Player::attack(Player& p)
 	int acRoll = rand() % p.AC;
 	// not dealing with GDR
 	int damage = this->dmg - acRoll;
-	std::cout << "Armor reduced damage to " << damage << "\n";
+	// std::cout << "Armor reduced damage to " << damage << "\n";
 	if (damage < 0)
 		return true; // the target's armor absorbed the entire attack
 
@@ -61,7 +61,7 @@ int Player::takeTurn(turn t)
 		this->attack(*(t.target));
 		break;
 	default:
-		std::cout << "I have no idea how to take that turn\n";
+		// std::cout << "I have no idea how to take that turn\n";
 		break;
 	}
 	return 0;
@@ -73,16 +73,16 @@ void Player::scheduleHeal()
 	int nextTime = this->recovery + sched.cur_time;
 	task nextHeal = { std::async(std::launch::deferred, &Player::heal, this), nextTime };
 	sched.schedule(nextHeal);
-	std::cout << "Scheduled a heal for time t=" << nextTime << std::endl;
+	// std::cout << "Scheduled a heal for time t=" << nextTime << std::endl;
 }
 
 int Player::heal()
 {
 	this->HP++;
-	std::cout << "The time is " << sched.cur_time << " and " << this->name << " just healed to " << this->HP << " HP\n";
+	// std::cout << "The time is " << sched.cur_time << " and " << this->name << " just healed to " << this->HP << " HP\n";
 	if (this->HP < this->maxHP)
 	{
-		std::cout << "More healing is left to do!\n";
+		// std::cout << "More healing is left to do!\n";
 		this->scheduleHeal();
 	}
 		

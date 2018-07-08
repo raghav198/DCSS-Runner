@@ -54,8 +54,8 @@ bool Game::turnIsValid(Player * p, turn& t)
 
 int Game::getPlayerTurn(Player * p)
 {
-	this->g.log("It is " + p->name + "'s turn");
 	this->g.showMap();
+	this->g.showStatus(*p);
 	turn t(NUM_TURNS, NUM_DIRS);
 	while (!this->turnIsValid(p, t = p->ai.readPlayerTurn()));
 	// at the end of this while loop, t is guaranteed to have a valid turn
