@@ -8,6 +8,8 @@ Map::Map(int x, int y)
 
 tile Map::at(int x, int y)
 {
+	if (x < 0 || y < 0) return NUM_TILES;
+	if (x > this->size.x || y > this->size.y) return NUM_TILES;
 	return this->map[x * this->size.x + y];
 }
 

@@ -1,6 +1,7 @@
 #pragma once
 #include "Point.h"
 #include "scheduling.h"
+#include "Controller.h"
 #include<bitset>
 #include<vector>
 
@@ -33,7 +34,7 @@ private:
 	int HD;
 	int (&resistances)[NUM_RESIST];
 	int time;
-	int speed;
+	
 	std::vector<Player*> summons;
 	brand type;
 	
@@ -54,13 +55,16 @@ public:
 		time(0),
 		speed(10),
 		HD(HD) { }
-
-	int HP, MP;
-	std::string name;
-	Point location;
 	bool move(direction);
 	bool attack(Player&);
-	int takeTurn();
+	int takeTurn(turn);
+public:
+	int HP, MP;
+	int speed;
+	std::string name;
+	Point location;
+	Controller ai;
+	
 
 	int heal();
 	void scheduleHeal();

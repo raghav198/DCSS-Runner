@@ -17,6 +17,8 @@ struct Point {
 	Point(short x, short y) : 
 		x(x), 
 		y(y) { }
+	Point operator+(Point);
+	bool operator==(Point);
 };
 
 void move(Point&, direction);

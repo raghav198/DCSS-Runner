@@ -44,20 +44,29 @@ bool Player::attack(Player& p)
 	
 	// if (p.HP < 0) kill(&p);
 	// schedule.push(p.heal());
-
-	task nextTurn = { std::async(std::launch::deferred, &Player::takeTurn, this), sched.cur_time + this->speed };
-	sched.schedule(nextTurn);
 	
 
 	return true;
 
 }
 
-int Player::takeTurn()
+int Player::takeTurn(turn t)
 {
-	// TODO: manav implements this piece
+	switch (t.type)
+	{
+	case MOVE:
+		this->move(t.dir);
+		break;
+	case ATTACK:
+		this->attack(*(t.target));
+		break;
+	default:
+		std::cout << "I have no idea how to take that turn\n";
+		break;
+	}
 	return 0;
 }
+
 
 void Player::scheduleHeal()
 {

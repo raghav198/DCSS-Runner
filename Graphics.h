@@ -20,17 +20,17 @@ class Graphics
 private:
 	Map map;
 	msglog messages;
-	std::vector<Player> players;
+	std::vector<Player*> players;
 	void fillMap();
 	void addPlayers();
 	void showLog();
 public:
-	Graphics(Map map, std::vector<Player> players) :
+	Graphics(Map map, std::vector<Player*> players) :
 		map(map),
 		players(players),
 		messages(20, 10, 50) { }
-	~Graphics();
 	void log(std::string);
 	void showMap();
+	void showStatus();
 };
 

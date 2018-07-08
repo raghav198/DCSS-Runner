@@ -5,12 +5,11 @@
 
 void Graphics::fillMap()
 {
-	std::cout << 'x';
 	for (int i = 0; i < this->map.size.y; i++)
 	{
 		for (int j = 0; j < this->map.size.x; j++)
 		{
-			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), { (short)i, (short)j });
+			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), { 2 * (short)i, (short)j });
 			switch (this->map.at(i, j))
 			{
 			case WALL:
@@ -20,24 +19,22 @@ void Graphics::fillMap()
 				std::cout << '~';
 				break;
 			case BLANK:
-				std::cout << ' ';
+				std::cout << '.';
 				break;
 			}
 		}
 	}
 }
 
-Graphics::~Graphics()
-{
-}
-
 void Graphics::addPlayers()
 {
 	for (unsigned int i = 0; i < this->players.size(); i++)
 	{
-		Player p = this->players[i];
+		Player * p = this->players[i];
 		char rep = 'A' + i;
-		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), *((COORD *)&p.location));
+		COORD c = *((COORD *)&(*p).location);
+		c.X *= 2;
+		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), c);
 		std::cout << rep;
 	}
 }
@@ -46,6 +43,11 @@ void Graphics::showMap()
 {
 	this->fillMap();
 	this->addPlayers();
+}
+
+void Graphics::showStatus()
+{
+	COORD 
 }
 
 void Graphics::log(std::string message)

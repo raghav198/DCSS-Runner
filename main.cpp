@@ -9,6 +9,7 @@
 #include "scheduling.h"
 #include "Map.h"
 #include "Graphics.h"
+#include "Game.h"
 
 extern scheduler sched;
 
@@ -57,7 +58,7 @@ void testGraphics()
 	p1.location = Point(3, 5);
 	p2.location = Point(6, 9);
 	system("cls");
-	Graphics g(m, { p1, p2 });
+	Graphics g(m, { &p1, &p2 });
 	g.showMap();
 	
 }
@@ -70,9 +71,23 @@ void testLog()
 	Player p1("Player 1", 25, 10, 3, 3, 21, 12, 8, 20, R);
 	Player p2("Player 2", 30, 5, 7, 2, 5, 25, 30, 17, R);
 
-	Graphics g(m, { p1, p2 });
+	Graphics g(m, { &p1, &p2 });
 	g.log("Hello, world!");
 	g.log("Goodbye, world!");
+}
+
+void testGame()
+{
+	Map m(32, 32);
+	m.makeBlank();
+
+	int R[NUM_RESIST] = { 0, 0, 0, 0, 0 };
+	Player p("Manav", 50, 10, 3, 1, 8, 20, 10, 16, R);
+	p.location = { 5, 10 };
+	Game game(m, { &p });
+	sched.schedule({ std::async(std::launch::deferred, &Game::getPlayerTurn, game, &p), 0 });
+	sched.run();
+
 }
 
 int main()
@@ -83,6 +98,6 @@ int main()
 	testGraphics();
 	std::getchar();*/
 
-	testLog();
+	testGame();
 	std::getchar();
 }

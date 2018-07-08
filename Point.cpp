@@ -37,3 +37,13 @@ void move(Point& p, direction d)
 		break;
 	}
 }
+
+Point Point::operator+(Point p)
+{
+	return Point(this->x + p.x, this->y + p.y);
+}
+
+bool Point::operator==(Point p)
+{
+	return this->x == p.x && this->y == p.y;
+}
