@@ -67,3 +67,7 @@ int Game::getPlayerTurn(Player * p)
 	return 0;
 }
 
+int Game::kill(Player * p)
+{
+	return 0;
+}

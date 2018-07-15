@@ -16,7 +16,12 @@ public:
 		map(map),
 		players(players),
 		g(map, players) { }
+	Game(Map map, std::vector<Player*> players, msglog log) :
+		map(map),
+		players(players),
+		g(map, players, log) { }
 	int getPlayerTurn(Player *);
+	int kill(Player *);
 	
 	
 };

@@ -22,7 +22,7 @@ void Map::make(float WALL_CHANCE, float WATER_CHANCE)
 		{
 			double x = ((double)rand() / (double)RAND_MAX);
 			if (x < WALL_CHANCE) this->map[i * sz + j] = WALL;
-			else if (x < WATER_CHANCE) this->map[i * sz + j] = WATER;
+			else if (x < WALL_CHANCE + WATER_CHANCE) this->map[i * sz + j] = WATER;
 			else this->map[i * sz + j] = BLANK;
 		}
 	}
@@ -31,7 +31,7 @@ void Map::make(float WALL_CHANCE, float WATER_CHANCE)
 void Map::makeBlank()
 {
 	int sz = this->size.x;
-	this->make(0, 0);
+	this->make(0.15, 0);
 	// left and right borders
 	for (int i = 0; i < this->size.y; i++)
 	{

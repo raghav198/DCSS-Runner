@@ -38,11 +38,11 @@ void testQueue()
 void testPlayer()
 {
 	int R[NUM_RESIST] = { 0, 0, 0, 0, 0 };
-	Player p1("Player 1", 25, 10, 3, 3, 21, 12, 8, 20, R);
-	Player p2("Player 2", 30, 5, 7, 2, 5, 25, 30, 17, R);
+	// Player p1("Player 1", 25, 10, 3, 3, 21, 12, 8, 20, R);
+	// Player p2("Player 2", 30, 5, 7, 2, 5, 25, 30, 17, R);
 
-	p1.attack(p2);
-	p2.attack(p1);
+	// p1.attack(p2);
+	// p2.attack(p1);
 
 	sched.run();
 }
@@ -52,14 +52,14 @@ void testGraphics()
 	Map m(32, 32);
 	m.makeBlank();
 	int R[NUM_RESIST] = { 0, 0, 0, 0, 0 };
-	Player p1("Player 1", 25, 10, 3, 3, 21, 12, 8, 20, R);
-	Player p2("Player 2", 30, 5, 7, 2, 5, 25, 30, 17, R);
+	// Player p1("Player 1", 25, 10, 3, 3, 21, 12, 8, 20, R);
+	// Player p2("Player 2", 30, 5, 7, 2, 5, 25, 30, 17, R);
 
-	p1.location = Point(3, 5);
-	p2.location = Point(6, 9);
-	system("cls");
-	Graphics g(m, { &p1, &p2 });
-	g.showMap();
+	// p1.location = Point(3, 5);
+	// p2.location = Point(6, 9);
+	// system("cls");
+	// Graphics g(m, { &p1, &p2 });
+	// g.showMap();
 	
 }
 
@@ -68,8 +68,8 @@ void testLog()
 	Map m(32, 32);
 	m.makeBlank();
 	int R[NUM_RESIST] = { 0, 0, 0, 0, 0 };
-	Player p1("Player 1", 25, 10, 3, 3, 21, 12, 8, 20, R);
-	Player p2("Player 2", 30, 5, 7, 2, 5, 25, 30, 17, R);
+	Player p1("Player 1", 25, 10, 3, 3, 21, 12, 8, 20, VAMP, R);
+	Player p2("Player 2", 30, 5, 7, 2, 5, 25, 30, 17, VAMP, R);
 
 	Graphics g(m, { &p1, &p2 });
 	g.log("Hello, world!");
@@ -82,15 +82,18 @@ void testGame()
 	m.makeBlank();
 
 	int R[NUM_RESIST] = { 0, 0, 0, 0, 0 };
-	Player p1("Manav", 50, 10, 3, 15, 8, 20, 10, 16, R);
-	Player p2("Raghav", 150, 20, 1, 15, 30, 25, 57, 100, R);
+	Player p1("Manav", 299, 10, 1, 15, 25, 20, 75, 27, VENOM, R);
+	Player p2("Raghav", 242, 20, 1, 15, 30, 12, 57, 20, FLAME, R);
 	p1.location = { 5, 10 };
 	p1.ai.type = CTRL_WASD;
 	p2.location = { 20, 20 };
 	p2.ai.type = CTRL_ARROW;
+	
 	Game game(m, { &p1, &p2 });
 	sched.schedule({ std::async(std::launch::deferred, &Game::getPlayerTurn, game, &p1), 0 });
 	sched.schedule({ std::async(std::launch::deferred, &Game::getPlayerTurn, game, &p2), 0 });
+	p1.scheduleHeal();
+	p2.scheduleHeal();
 	sched.run();
 
 }

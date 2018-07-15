@@ -19,7 +19,7 @@ void Graphics::fillMap()
 				std::cout << '~';
 				break;
 			case BLANK:
-				std::cout << '.';
+				std::cout << ' ';
 				break;
 			}
 		}
@@ -62,7 +62,10 @@ void Graphics::showStatus(Player cur)
 		std::cout << blank;
 		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), { x, y });
 		if (cur.name == p->name) std::cout << '*';
-		std::cout << p->name << ' ';
+		std::cout << p->name;
+		if (p->pois)
+			std::cout << " pois " << p->pois;
+		std::cout << ' ';
 		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), { x + 15, y });
 		std::cout << p->HP;
 		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), { x + 20, y });
@@ -72,28 +75,7 @@ void Graphics::showStatus(Player cur)
 
 void Graphics::log(std::string message)
 {
-	message.resize(this->messages.width);
-	unsigned i;
-	for (i = 0; i < this->messages.lines.size() - 1; i++)
-		this->messages.lines[i] = this->messages.lines[i + 1];
-	this->messages.lines[i] = message;
-	this->showLog();
+	this->messages << message;
+	this->messages.show();
 }
 
-void Graphics::showLog()
-{
-	COORD logPos = { this->messages.x, this->messages.y };
-	std::string blank = " ";
-	blank.resize(this->messages.width, ' ');
-	// clear current set of messages
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), logPos);
-	for (unsigned i = 0; i < this->messages.lines.size(); i++)
-		std::cout << blank << std::endl;
-	// write out new messages
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), logPos);
-	for (unsigned i = 0; i < this->messages.lines.size(); i++)
-		std::cout << this->messages.lines[i] << std::endl;
-		
-
-
-}

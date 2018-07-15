@@ -19,7 +19,9 @@ enum brand {
 	FREEZE,
 	VAMP,
 	CHAOS,
+	ELECTRO,
 	VENOM,
+	HOLY,
 	NUM_BRANDS
 };
 
@@ -40,7 +42,7 @@ private:
 	
 public:
 
-	Player(std::string name, int maxHP, int maxMP, int regen, int recovery, int AC, int EV, int dmg, int HD, int (&res)[NUM_RESIST]):
+	Player(std::string name, int maxHP, int maxMP, int regen, int recovery, int AC, int EV, int dmg, int HD, brand b, int (&res)[NUM_RESIST]):
 		name(name),
 		maxHP(maxHP),
 		HP(maxHP),
@@ -54,19 +56,22 @@ public:
 		resistances(res),
 		time(0),
 		speed(10),
-		HD(HD) { }
+		HD(HD),
+		type(b) { }
 	bool move(direction);
 	bool attack(Player&);
 	int takeTurn(turn);
 public:
 	int HP, MP;
 	int speed;
+	int pois;
 	std::string name;
 	Point location;
 	Controller ai;
 	
 
 	int heal();
+	int handlePoison();
 	void scheduleHeal();
 };
 
